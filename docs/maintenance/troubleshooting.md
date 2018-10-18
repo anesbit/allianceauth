@@ -50,3 +50,28 @@ This is likely due to a permissions mismatch. Check the setup guide for your web
 ### Unable to execute 'gunicorn myauth.wsgi' or ImportError: No module named 'myauth.wsgi'
 
 Gunicorn needs to have context for its running location, `/home/alllianceserver/myauth/gunicorn myauth.wsgi` will not work, instead `cd /home/alllianceserver/myauth` then `gunicorn myauth.wsgi` is needed to boot Gunicorn. This is handled in the Supervisor config, but this may be encountered running Gunicorn manually for testing.
+
+### Supervisor myauth:beat Fatal error ###
+
+Downgrade django-celery-beat to 1.1.1.
+
+Run these commands:
+
+   source /home/allianceserver/venv/auth/bin/activate
+   pip install django-celery-beat==1.1.1
+   deactivate
+   supervisorctl restart myauth:
+
+Verify its running with
+   
+   supervisorctl status
+
+### Getting "Unable to authenticate as the selected character" when authenticating character ###
+
+Downgrade django to 2.0.8
+
+Run these commmands:
+
+   source /home/allianceserver/venv/auth/bin/activate
+   pip install Django==2.0.8
+   deactivate
